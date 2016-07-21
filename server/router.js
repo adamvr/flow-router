@@ -7,6 +7,11 @@ Router = class extends SharedRouter {
     this.inSubscription = new Meteor.EnvironmentVariable();
     this.routeContext = new Meteor.EnvironmentVariable();
 
+    // Meteor exposes to the client the path prefix that was defined using the
+    // ROOT_URL environement variable on the server using the global runtime
+    // configuration. See #315.
+    this._basePath = __meteor_runtime_config__.ROOT_URL_PATH_PREFIX || '';
+
     // FlowRouter can defer the script loading after rendered the body
     // It's turned off by default
     this.deferScriptLoading = false;
